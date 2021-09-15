@@ -1,0 +1,53 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage[english]{babel}
+\usepackage{amsmath}
+\usepackage[]{amsthm} %lets us use \begin{proof}
+\usepackage[]{amssymb} %gives us the character \varnothing
+
+\title{DATA 558: Homework 1}
+\author{Trevor Nims}
+\date\today
+
+
+\begin{document}
+\maketitle
+
+\section*{Exercise 1}
+In this section, I will compute the derivatives of the following functions with respect to the parameter $\beta \in \mathbb{R}$.
+\\\\
+\indent 1. $f(\beta) = \frac{1}{2n}\sum_{i=1}^{n}(y_1-x_i\beta)^2$
+
+\begin{align*}
+	\frac{d}{d\beta}f(\beta) &= -\frac{2}{2n}\sum_{i=1}^{n} x_i(y_i-x_i\beta) \\
+	&= -\frac{1}{2n}\sum_{i=1}^{n} x_iy_i-x_i^2\beta
+\end{align*}
+\\\\
+\indent 2. $f(\beta) = \frac{e^{x\beta}}{e^{x\beta}+1}$
+\begin{align*}
+	\frac{d}{d\beta}f(\beta) &=	\frac{d}{d\beta}\bigg(e^{x\beta}(e^{x\beta}+1)^{-1}\bigg) \\
+	&= \frac{xe^{x\beta}}{e^{x\beta}+1}-\frac{e^{x\beta}xe^{x\beta}}{(e^{x\beta}+1)^2} \\
+	&= \frac{xe^{x\beta}}{e^{x\beta}+1}-\frac{xe^{2x\beta}}{(e^{x\beta}+1)^2} 
+\end{align*}
+\\\\
+\indent 3. $f(\beta) = \text{log}(\sum_{i=1}^{n}e^{x_i\beta-1})$
+\begin{align*}
+	\frac{d}{d\beta}f(\beta) &= \frac{1}{\sum_{i=1}^{n}e^{x_i\beta-1}}\cdot\sum_{i=1}^{n}x_ie^{x_i\beta-1} \\
+	&= \sum_{i=1}^{n}x_i
+\end{align*}
+\\\\
+\indent 4. $f(\beta) = |y-x\beta|$
+\\
+\[f(\beta) =  \begin{cases}
+	y-x\beta & \beta \leq \frac{y}{x} \\
+	-(y-x\beta) & \beta > \frac{y}{x}
+\end{cases}
+\] \\
+
+\[ \frac{d}{d\beta}f(\beta) =  \begin{cases}
+	-x & \beta \leq \frac{y}{x} \\
+	x & \beta > \frac{y}{x}
+\end{cases}
+\] \\
+
+\end{document}

@@ -1,0 +1,76 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage[english]{babel}
+\usepackage{amsmath}
+\usepackage[]{amsthm} %lets us use \begin{proof}
+\usepackage[]{amssymb} %gives us the character \varnothing
+
+\title{DATA 558: Homework 2}
+\author{Trevor Nims}
+\date\today
+
+
+\begin{document}
+\maketitle
+
+\section*{Exercise 1}
+In this section, I will that the coefficient of determination:
+$$R^2 = \frac{\text{TSS-RSS}}{\text{TSS}} = 1 - \frac{\text{RSS}}{\text{TSS}}$$
+With:
+$$\text{RSS} = \sum_{i=1}^{n}(y_i-\hat{y}_i)^2 \text{ and TSS} = \sum_{i=1}^{n}(y_i-\bar{y})^2$$
+Has a domain given by:
+$$0 \leq R^2 \leq 1$$
+I will do this by showing that the TSS is equal to the sum of the RSS and the ESS, that is:
+$$ \sum_{i=1}^{n}(y_i-\bar{y})^2 = \sum_{i=1}^{n}(y_i-\hat{y}_i)^2+\sum_{i=1}^{n}(\hat{y}_i-\bar{y})^2$$
+\begin{proof}
+Let us begin with the LHS:
+\begin{align*}
+	\sum_{i=1}^{n}(y_i-\bar{y})^2 &= \sum_{i=1}^{n}(y_i-\bar{y}+\hat{y}_i-\hat{y}_i)^2 \\
+	&= \sum_{i=1}^{n}((\hat{y}_i-\bar{y})+(y_i-\hat{y}_i))^2 \\
+	&=  \sum_{i=1}^{n}(\hat{y}_i-\bar{y})^2+ \sum_{i=1}^{n}(y_i-\hat{y}_i)^2 +2 \sum_{i=1}^{n}(y_i-\hat{y}_i)(\hat{y}_i-\bar{y}) \\
+\end{align*}
+Now recall that $\hat{\beta}$ is chosen to minimize the RSS, that is to say:
+$$\frac{\partial}{\partial\beta^{(j)}}RSS  =-2\sum_{i=1}^{n}(y_i-\beta^Tx_i)x_i^{(j)}$$
+And with $\hat{\beta}$ we have:
+$$-2\sum_{i=1}^{n}(y_i-\beta^Tx_i)x_i^{(j)} = 0$$
+Now, breaking down the final addend from our initial derivation we have:
+$$2 \sum_{i=1}^{n}(y_i-\hat{y}_i)(\hat{y}_i-\bar{y}) = 2\bigg(\sum_{i=1}^{n}\hat{y}_i(y_i-\hat{y}_i)-\bar{y}\sum_{i=1}^{n}(y_i-\hat{y}_i)\bigg)$$
+However, because we know:
+$$\sum_{i=1}^{n}(y_i-\hat{y}_i) = 0$$
+We just need to show:
+$$\sum_{i=1}^{n}\hat{y}_i(y_i-\hat{y}_i) = 0$$
+Consider the partial derivative of the RSS with respect to $\beta^{(j)}$, then we have:
+\begin{align*}
+	\sum_{i=1}^{n}x_i(y_i-\hat{y}_i) &= 0 \\
+	\sum_{i=1}^{n}\beta^Tx_i(y_i-\hat{y}_i) &= 0 \\
+	\sum_{i=1}^{n}\hat{\beta}^Tx_i(y_i-\hat{y}_i) + \sum_{i=1}^{n}\hat{\beta}_0(y_i-\hat{y}_i) &= 0 \\
+	\sum_{i=1}^{n}(\hat{\beta}_0+\hat{\beta}^Tx_i)(y_i-\hat{y}_i) &= 0 \\
+	\sum_{i=1}^{n}\hat{y}_i(y_i-\hat{y}_i) &= 0
+\end{align*}
+Therefore:
+$$2 \sum_{i=1}^{n}(y_i-\hat{y}_i)(\hat{y}_i-\bar{y}) = 0$$
+Giving us:
+$$\sum_{i=1}^{n}(y_i-\bar{y})^2 = \sum_{i=1}^{n}(\hat{y}_i-\bar{y})^2+ \sum_{i=1}^{n}(y_i-\hat{y}_i)^2$$
+And we are done.
+\end{proof}
+
+\newpage
+\section*{Exercise 2}
+Now, I will prove the following identity:
+$$E_y[(y-\bar{\beta}^Tx)^2] = E_y[(y-f(x))^2]+(f(x)-\bar{\beta}^Tx)^2$$
+With $f(x)$ leearned from the data, that is:
+$$f(x) \approx \hat{\beta}^Tx$$
+\begin{proof}
+Beginning with the LHS:
+\begin{align*}
+	E_y[(y-\bar{\beta}^Tx)^2] &= E_y[((y-f(x))+(f(x)-\bar{\beta}^Tx))^2] \\
+	&= E_y[(y-f(x))^2]+2E_y[(y-f(x))(f(x)-\bar{\beta}^Tx)] + E_y[(f(x)-\bar{\beta}^Tx))^2] \\
+	&= E_y[(y-f(x))^2]+(f(x)-\bar{\beta}^Tx))^2+2E_y[(y-f(x))]E_y[(f(x)-\bar{\beta}^Tx)]
+\end{align*}
+Note that we were able to distribute the expectation across the product because $(f(x)-\bar{\beta}^Tx)$ is independent of $y$.  Moreover, because the expected value of the residual is equal to zero:
+$$E_y[(y-f(x))] = 0$$
+The final term in the addition is eliminated, leaving us with:
+$$E_y[(y-\bar{\beta}^Tx)^2] = E_y[(y-f(x))^2]+(f(x)-\bar{\beta}^Tx))^2$$
+And we are done.
+\end{proof}
+\end{document}
